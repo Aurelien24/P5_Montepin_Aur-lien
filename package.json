@@ -1,0 +1,19 @@
+{
+  "name": "projet003",
+  "version": "1.0.0",
+  "description": "Projet03-OpenClassroom",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch ./sass/style.scss:.public/css/style.css --style compressed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aurelien24/P5_Montepin_Aur-lien.git"
+  },
+  "author": "Aurélien Montepin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Aurelien24/P5_Montepin_Aur-lien/issues"
+  },
+  "homepage": "https://github.com/Aurelien24/P5_Montepin_Aur-lien#readme"
+}

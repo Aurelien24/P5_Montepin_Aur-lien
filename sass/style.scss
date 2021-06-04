@@ -1,0 +1,98 @@
+.flex {
+
+    display: flex;
+}
+
+.header {
+
+    height: 10vw;
+    min-height: 50px;
+    max-height: 150px;
+}
+
+.couleur-principal {
+
+    background-color: #F3E9F1;
+}
+
+.header-button-contener {
+
+    justify-content: space-around;
+
+    span {
+
+        flex-direction: column;
+        justify-content: space-around;
+        height: 100%;
+
+        .header-button {
+
+            color: white;
+            background-color: #1771E6;
+            height: 5vw;
+            min-height: 26px;
+            width: 10vw;
+            min-width: min-content;
+            max-width: 150px;
+            max-height: 50px;
+        }
+    }
+}
+
+button {
+    border: none;
+    border-radius: 5px;
+}
+
+#zone-recherche {
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    #recherche {
+        justify-content: center;
+        margin-top: 20px;
+
+        #recherche-produit {
+            height: 30px;
+        }
+    }
+
+    #selecteur {
+        justify-content: center;
+        margin-top: 20px;
+    }
+    
+
+    button {
+        height: 30px;
+    }
+}
+
+.deroulant {
+    border: none;
+}
+
+.logo {
+
+    height: 100%;
+}
+
+.no-warp {
+    white-space: nowrap;
+}
+
+.lien {
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    
+    div {
+        justify-self: center;
+    }
+}
+
+@media screen and (min-width: 995px){
+    .lien {
+        flex-direction: row;
+    }
+}
