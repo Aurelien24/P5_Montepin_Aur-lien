@@ -3,6 +3,10 @@
     display: flex;
 }
 
+#error {
+    color: red;
+}
+
 .header {
 
     height: 10vw;
@@ -70,6 +74,45 @@ button {
 
 .deroulant {
     border: none;
+}
+
+.fond {
+    
+    background-color: whitesmoke;
+}
+
+#resultat {
+
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 3vw 0vw 3vw 0vw;
+
+    div {
+
+        background-color: #ebebeb;
+        margin: 3vw;
+        border-radius: 15px;
+        border: 10px solid #ebebeb;
+        padding: 0px;
+
+        a > .img-recherche {
+
+            object-fit: cover;
+            width: 100%;
+            height: 80%;
+            border-radius: 10px 10px 0px 0px;
+        }
+
+        .img-produit {
+
+            width: 100%;
+        }
+    }
+}
+
+a {
+    text-decoration: none;
+            color: black;
 }
 
 .logo {

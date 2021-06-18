@@ -11,6 +11,11 @@ let nombreDeProduit = ;*/
 /* Evité d'avoir de longue fonction */
 /* Fonction logique de formation du language */
 
+const hebergement = "http://localhost:3000/api/"
+
+
+let categorie = "teddies"
+
 function recuperationProduit() {
     fetch("http://localhost:3000/api/teddies", {
         method: "GET",
@@ -21,14 +26,26 @@ function recuperationProduit() {
     })
 
     //* Changement de res a teddies. Test (si res -> réponse étais obligatoire) et meilleur comprension de l'api
+    .then(function(res) {
+        if (res.ok) {
+            //*fait une fin de fonction
+            return res.json();
+        }
+    })
+
+    //*data est une variable. Data.length ou forEach
+    //*Le .then appel la fonction avec le résultat qui est envoyé. La variable prend le nom mis dans la fonction
     .then(function(teddies) {
-        if (teddies.ok) {
 
-            console.log(teddies.json());
-            //* Pourquoi 200 ???
-            console.log(teddies.status);
+        console.log(teddies)
 
-            //*    teddies.json.forEach(_id => console.log(_id));
+        //* forEach attend en paramettre un fontion qui va prendre 1 argument. -> ressoit 1 teddies.
+        //* teddies.json.forEach(_id => console.log(_id));
+
+        teddies.forEach(teddy => {
+
+            let produit = './produit.html?id=' + teddy._id
+
 
             let container = document.getElementById("resultat")
 
@@ -38,30 +55,28 @@ function recuperationProduit() {
             let img = document.createElement("img")
             let h3 = document.createElement("h3")
             let h4 = document.createElement("h4")
-            
 
-            //* Création du texte
-            let Nom = document.createTextNode('name produit')
-            let Prix = document.createTextNode('prix / 100 en €')
-
-            //* Mise en place
+            //* Hyérarchie
             container.appendChild(div)
             div.appendChild(a)
             a.appendChild(img)
             a.appendChild(h3)
             a.appendChild(h4)
-            h3.appendChild(Nom)
-            h4.appendChild(Prix)
+
+            //* contenu non textuel
+            h3.innerHTML = teddy.name
+            h4.innerHTML = teddy.price / 100 + ' €'
+            img.src = teddy.imageUrl
+            a.href = produit //* mettre en requette get html
 
             //* Ajout des classes
-            div.className = "col-8 col-lg-4"
-        }
-    })
+            div.className = "col-8 col-lg-3 flex"
+            img.className = "img-recherche"
+            
+            //*fonction qui s'occupe du rendu créant une boucle pour s'occuper des élléement html
 
-    //*data est une variable
-    .then(function(data) {
-        console.log(data)
-        //*fonction qui s'occupe du rendu créant une boucle pour s'occuper des élléement html
+            console.log(teddy._id)
+        });
     })
 }
 
