@@ -3,6 +3,9 @@ function recuperationJeSaisPasQuoi() {
     // Récupération des produit demander
     const container = document.getElementById("resultat")
 
+
+    // Utilisé un json avec local storage. Quantité nom produit. JSON parse... Je JSON doit etre mis en 1 chaine de charatère
+
     /* Création des élléments  /!\ Y AS PAS PLUS SIMPLE ?? Récupérer/faire un tableau JS avec les donner de base pour les posé 'direct' en tableau HTML ???
     const div = document.createElement("div")
     const thead = document.createElement("thead")
