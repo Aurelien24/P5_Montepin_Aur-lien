@@ -1,5 +1,7 @@
 // Pour récupérer l'id dans la génération automatique de la page
 let urlSearchParams = new URLSearchParams(document.location.search)
+
+// Prévoir un au cas ou si il y as pas d'ID
 let id = urlSearchParams.get("id")
 let lien = "http://localhost:3000/api/teddies/" + id
 
@@ -18,6 +20,8 @@ const select = document.createElement("select")
 const option = document.createElement("option")
 const input = document.createElement("input")
 const button = document.createElement("button")
+
+let repetition = false;
 
 function recuperationProduit() {
 
@@ -98,10 +102,15 @@ function onClique() {
     let number = parseInt(inputNumber.value);
     const selectColor = document.getElementById('color');
 
-    // BIEN PENSER A PRENDRE VALUE et non InnerText
+    // BIEN PENSER A PRENDRE VALUE et non InnerText et mettre let pour si ont prend 2 couleur dif l'une après l'autre
     const color = selectColor.value;
     const p = document.getElementById("error");
-    const name = document.getElementById("name");
+    const nomProduit = document.getElementById("name");
+    
+    // LE NOM NE PASSE PAS !!
+    const name = "Nom Du Produit"//nomProduit.innerHTML;
+
+    repetition = false;
     
     console.log("clique fait!")
     console.log(parseInt(inputNumber.value))
@@ -115,26 +124,170 @@ function onClique() {
 
         // Mise en place du JSON
 
+        // Faire avec un tableau. Ajout d'une ligne a chaque fois
+        // Récupérer le panier qui existe déja
+        // LocalStorage pour sauvgarder le panier
+        
+        //let panierJSON = localStorage.getItem('panierJSON')
+        //panierJSON = JSON.parse(panierJSON)
+
+        /*let panierJSON = {
+            _id: id,
+            nombre: number,
+            couleur: color,
+            nom: name
+        }*/
+
+        //console.log(panierJSON);
+
+        //let myNewJSON = JSON.stringify(panierJSON, null, 2);
+
+        //console.log(myNewJSON);
+        
+        // Si panierJSON existe        
+
+        
+
+        let keyRepetition = "produit" + id + color;
+
         let panierJSON = {
+            superClef: keyRepetition,
             _id: id,
             nombre: number,
             couleur: color,
             nom: name
         }
 
-        console.log(name);
+        if (localStorage.getItem("numberProduit") == null){
 
-        let myNewJSON = JSON.stringify(panierJSON, null, 2);
+            let numberProduit = 0;
 
-        console.log(myNewJSON);
+            localStorage.setItem("numberProduit", JSON.stringify(numberProduit));
+        }
+
+        numberProduit = localStorage.getItem("numberProduit");
+        numberProduit = JSON.parse(numberProduit)
+
+        for (let i = 0; i <= numberProduit; i++){
+            let objet = localStorage.getItem(i);
+            objet = JSON.parse(objet)
+            console.log(i)
+            
+            if (objet != null){
+
+                console.log(objet.superClef)
+
+                if (objet.superClef === keyRepetition){
+
+                    repetition = true;
+    
+                    let panierJSON = {
+                        superClef: keyRepetition,
+                        _id: id,
+                        nombre: number + objet.nombre,
+                        couleur: color,
+                        nom: name
+                    }
+    
+                    localStorage.setItem(numberProduit, JSON.stringify(panierJSON));
         
-        // Si panierJSON n'est pas égale a vrai
-        if (panierJSON != null){
-            console.log("il y as un panierJSON")
+                } 
+            }
+        }
+
+        if (repetition == false) {
+
+            console.log("on y est !")
+            numberProduit = localStorage.getItem("numberProduit");
+    
+            numberProduit ++;
+
+            localStorage.setItem("numberProduit", JSON.stringify(numberProduit));
+            localStorage.setItem(numberProduit, JSON.stringify(panierJSON));
+        }
+        /*else {
+                
+    
+            numberProduit ++;
+
+            localStorage.setItem("numberProduit", JSON.stringify(numberProduit));
+            localStorage.setItem(numberProduit, JSON.stringify(panierJSON));
+        }
+
+        /* Avec plusieur localStorage mais une clef de vérification et fusion des produits
+
+        key = "produit" + id + color;
+
+        if (localStorage.getItem("key") != null){
+            console.log("existe déjà")
+
+            vieuJSON = JSON.parse(localStorage.getItem(key));
+            console.log(vieuJSON.nombre)
+            console.log(panierJSON.nombre)
+            trueNumber = panierJSON.nombre + vieuJSON.nombre;
+            console.log(trueNumber)
+
+            panierJSON = {
+                _id: id,
+                nombre: trueNumber,
+                couleur: color,
+                nom: name
+            }
+
+            localStorage.setItem(key, JSON.stringify(panierJSON));
+
+        }else{
+            
+            localStorage.setItem(key, JSON.stringify(panierJSON));            
+        }
+
+
+
+        /* RE-base panierJSON en talbleau Séparer tableau ? monTableau.push(a); pour y mettre
+        if (localStorage.getItem("panier") != null){
+
+        }else{
+            let panier = [panierJSON];
+
+            console.log(panier)
+            localStorage.setItem("panier", JSON.stringify(panier));
+            //localStorage.setItem("panier", JSON.stringify(["id", "nom", "specificiter", "nombre"][id, name, color, number]));
+        }
+        
+
+        // PAS REUSSI LE JSON TABLEAU
+       /* if (panierJSON != null){
+            // si il existe ont ajoute le produit
+            console.log("c'est if")
+
+            // vérifier si il y as 2 fois le meme article de comander avec la meme couleur (id + couleur) ajouter nombre
+        } else {
+            console.log("c'est else")
+
+            let panierJSON = {
+                _id: id,
+                nombre: number,
+                couleur: color,
+                nom: name
+            }
+
+            localStorage.setItem("1", JSON.stringify(panierJSON));
+
+            /*panierJSON = {
+                "article": [
+                    {
+                        "nom": nom,
+                        "nombre": number,
+                        "id": id,
+                        "couleur": color
+                    }
+                ]
+            };
+
+            console.log(panierJSON)
         }
         
         /*
-
         panierJSON = JSON.parse(panierJSON)
         if (panierJSON != null) {
 

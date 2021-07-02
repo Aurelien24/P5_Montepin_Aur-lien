@@ -1,36 +1,100 @@
+const tableau = document.getElementById("panier")
+
+numberProduit = localStorage.getItem("numberProduit");
+numberProfuit = JSON.parse(numberProduit)
+
+var i = 1;
+
 function recuperationJeSaisPasQuoi() {
 
-    // Récupération des produit demander
-    const container = document.getElementById("resultat")
+    console.log(localStorage.length)
+
+    console.log(numberProfuit)
+    for (i; i <= numberProfuit; i++){
+
+        let panier = JSON.parse(localStorage.getItem(i));
+        console.log(i)
+
+        if (panier != null){
+
+            generationTableau();
+            verificationEtPrix();
+
+        }
+    }
+}
+
+let tr = "tr" + i;
+let td1 = "td" + i;
+let td2 = "td" + i;
+let td3 = "td" + i;
+let td4 = "td" + i;
+let td5 = "td" + i;
+let td6 = "td" + i;
+
+function generationTableau(){
+
+    let panier = JSON.parse(localStorage.getItem(i));
 
 
-    // Utilisé un json avec local storage. Quantité nom produit. JSON parse... Je JSON doit etre mis en 1 chaine de charatère
 
-    /* Création des élléments  /!\ Y AS PAS PLUS SIMPLE ?? Récupérer/faire un tableau JS avec les donner de base pour les posé 'direct' en tableau HTML ???
-    const div = document.createElement("div")
-    const thead = document.createElement("thead")
-    const tbody = document.createElement("tbody")
-    const tr = document.createElement("tr")
-    const td1 = document.createElement("td")
-    const td2 = document.createElement("td")
-    const td3 = document.createElement("td")
+    tr = document.createElement("tr")
+    td1 = document.createElement("td")
+    td2 = document.createElement("td")
+    td3 = document.createElement("td")
+    td4 = document.createElement("td")
+    td5 = document.createElement("td")
+    td6 = document.createElement("td")
 
+    tableau.appendChild(tr)
+    tr.appendChild(td1)
+    tr.appendChild(td2)
+    tr.appendChild(td3)
+    tr.appendChild(td4)
+    tr.appendChild(td5)
+    tr.appendChild(td6)
 
-    container.appendChild(div)
-    div.appendChild(thead)
-    thead.appendChild(tr)
-    div.appendChild(tbody)
-    tbody.appendChild(td1)
-    tbody.appendChild(td2)
-    tbody.appendChild(td3)
+    td1.textContent = panier.nom
+    td2.textContent = panier.couleur
+    td3.textContent = panier.nombre
+    td6.textContent = "Oui"
 
-    tr.innerText = "Votre panier"
-    td1.innerText = "Objet"
-    td2.innerText = "Spécificité"
-    td3.innerText = "Prix"
     
-    // un petit forEach pour chaque article
-    tbody.appendChild(li)*/
+}
+
+function verificationEtPrix() {
+
+    let panier = JSON.parse(localStorage.getItem(i));
+    let lien = "http://localhost:3000/api/teddies/" + panier._id
+
+    console.log(panier._id)
+
+    fetch(lien, {
+        method: "GET",
+        headers: { 
+            'Accept': 'application/json', 
+            'Content-Type': 'application/json' 
+        }
+    })
+
+    .then(function(res) {
+        if (res.ok) {
+            // fait une fin de fonction
+            return res.json();
+        }
+    })
+
+    .then(function(produit) {
+        if (produit != null){
+            console.log(produit.price)
+            td4.textContent = produit.price / 100 + " €"
+            td5.textContent = produit.price * panier.nombre / 100 + " €"
+        } else {
+            td4.textContent = "0 €"
+            td5.textContent = "0 €"
+            td6.textContent = "Indisponible"
+        }
+    })
 }
 
 recuperationJeSaisPasQuoi()
