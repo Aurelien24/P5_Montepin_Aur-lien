@@ -21,15 +21,11 @@
 	<header class="col-12 header flex couleur-principal">
 		<!-- Zone image logo-->
 		<div class="col-4 col-sm-6 logo">
-			<img src="image/logo.png" class="center-block logo" alt="Logo de Orinoco" />
+			<a href="index.html">
+				<img src="image/logo.png" class="center-block logo" alt="Logo de Orinoco" />
+			</a>
 		</div>
-		<!-- Zone compte utilisateur -->
 		<nav class="col-8 col-sm-6 header-button-contener flex">
-			<span class="flex">
-				<button class="header-button">
-					utilsateur
-				</button>
-			</span>
 			<span class="flex">
                 <a href="panier.html">
                     <button class="header-button">
@@ -52,6 +48,48 @@
 				<th>disponibilité</th>
 			</tr>
 		 </table>
+	</div>
+	<div class="col-12 flex fond">
+		<button id="videPanier"  >
+			Vider panier
+		</button>
+	</div>
+	<div  class="col-12 flex fond">
+		<form method="post">
+			<label for="nom">Votre nom :</label>
+			<input type="text" placeholder="Jean" name="nom" id="nom" required="true"/>
+
+			<br />
+			
+			<label for="pass">Votre téléphone:</label>
+			<input type="tel" placeholder="+33 1 00 00 00 00" name="tel" id="tel" required="true"/>
+
+			<br />
+			
+			<label for="pass">Votre email :</label>
+			<input type="email" placeholder="MonEmail@mail.com" name="email" id="email" required="true"/>
+
+			<br />
+			
+			<label for="pass">Votre adresse :</label>
+			<input type="text" placeholder="1 rue du formulaire" name="adresse" id="adresse" required="true"/>
+
+			<br />
+			
+			<label for="pass">Votre ville :</label>
+			<input type="text" placeholder="Bien-remplit" name="ville" id="ville" required="true" />
+
+			<br />
+			
+			<label for="code">Votre code postal :</label>
+			<input type="text" placeholder="10000" name="ville" id="code" required="true" min="1000"/>
+
+			<br />
+
+			<button type="submit" id="valider">
+				Valider ma commande
+			</button> 
+		</form>
 	</div>
 
 	<!-- Zone footer -->

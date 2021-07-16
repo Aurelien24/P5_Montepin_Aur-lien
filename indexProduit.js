@@ -79,7 +79,7 @@ function recuperationProduit() {
         p2.id = "error"
 
         const ajouter = document.getElementById('ajouter');
-        ajouter.addEventListener('click', onClique);
+        ajouter.addEventListener('click',() => onClique(teddy));
 
         console.log(teddy.colors)
 
@@ -96,7 +96,9 @@ function recuperationProduit() {
     })
 }
 
-function onClique() {
+function onClique(teddy) {
+    console.log(teddy);
+    
     // Mise en place des variable
     const inputNumber = document.getElementById('number');
     let number = parseInt(inputNumber.value);
@@ -108,7 +110,7 @@ function onClique() {
     const nomProduit = document.getElementById("name");
     
     // LE NOM NE PASSE PAS !!
-    const name = "Nom Du Produit"//nomProduit.innerHTML;
+    const name = teddy.name;
 
     repetition = false;
     
