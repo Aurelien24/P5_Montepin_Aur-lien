@@ -3,23 +3,7 @@ const tableau = document.getElementById("panier")
 numberProduit = localStorage.getItem("numberProduit");
 numberProfuit = JSON.parse(numberProduit)
 
-
-
-/*testJSON =  {
-    _id: "5be9c8541c9d440000665243null",
-    nombre: "1",
-    couleur: "Black",
-    nom: "Robert"
-}*/
-
-function recuperationJeSaisPasQuoi() {
-
-    console.log(localStorage.length)
-
-    console.log(numberProfuit)
-
-
-    //localStorage.setItem(2, JSON.stringify(testJSON));
+function recuperationPanier() {
 
     if (numberProfuit == null){
         
@@ -28,7 +12,6 @@ function recuperationJeSaisPasQuoi() {
     } else {
         for (let i = 1; i <= numberProfuit; i++){
 
-            let panier = JSON.parse(localStorage.getItem(i));
             console.log(i)
 
             verificationEtPrix(i);
@@ -38,8 +21,7 @@ function recuperationJeSaisPasQuoi() {
     const vider = document.getElementById('videPanier');
     vider.addEventListener('click',() => supprimerPanier());
 
-    const valider = document.getElementById('valider');
-    valider.addEventListener('click',() => validePanier());
+    document.querySelector('form').addEventListener('submit',(e) => validePanier(e));
 }
 
 function verificationEtPrix(i) {
@@ -56,48 +38,22 @@ function verificationEtPrix(i) {
             'Content-Type': 'application/json' 
         }
     })
-    // retun pour ne pas géré la promesse ici
 
     .then(function(res) {
         if (res.ok) {
-            // fait une fin de fonction
             return res.json();
         }
     })
 
     .then(function(produit) {
-    /* if (produit != null){
-            console.log(produit.price)
-            td4.textContent = produit.price / 100 + " €"
-            td5.textContent = produit.price * panier.nombre / 100 + " €"
-        } else {
-            td4.textContent = "0 €"
-            td5.textContent = "0 €"
-            td6.textContent = "Indisponible"
-        }*/
-
         generationTableau(produit, panier);
     })
-
-/*
-
-    const promise1 = new Promise((fonction si tout ce passe bien, reject) => {
-        produit sérialisé(() => {
-          resolve("argument a mettre");
-        }, prendre la fin);
-      });
-      
-      promise1.then((value) => {
-        console.log(value);
-        // expected output: "foo"
-      });
-      
-      console.log(promise1);
-      // expected output: [object Promise] */
 }
 
 let prixTotal = 0;
 let j = 0;
+
+toutProduit = [];
     
 function generationTableau(produit, panier){
 
@@ -125,12 +81,25 @@ function generationTableau(produit, panier){
     j ++;
 
     if (produit != null){
+
         console.log(produit.price)
         td4.textContent = produit.price / 100 + " €"
         td5.textContent = produit.price * panier.nombre / 100 + " €"
 
         prixTotal = prixTotal + (produit.price * panier.nombre) / 100
         console.log(prixTotal)
+
+        /* Méthode qui serais mieux
+        objet = [produit._id, panier.nom, panier.nombre, panier.couleur, produit.price]
+
+        toutProduit.push(objet);*/
+
+        // Ne fonctionne pas si ont donne toute les donnée a l'API
+        objet = produit._id;
+
+        toutProduit.push(objet);
+        console.log(toutProduit);
+
     } else {
         td4.textContent = "0 €"
         td5.textContent = "0 €"
@@ -199,7 +168,11 @@ function panierVide(){
     p.innerText = "Votre panier est vide"
 }
 
-function validePanier(){
+function validePanier(e){
+    
+    // coupe les comportements part défaut (aide a empécher le sulignement, clique droit...)
+    e.preventDefault();
+
     let nom = document.getElementById('nom');
     let tel = document.getElementById('tel');
     let mail = document.getElementById('email');
@@ -221,7 +194,154 @@ function validePanier(){
     console.log(v5)
     console.log(v6)
 
-    alert("Nous vous remercion de votre commande " + v1)
+    valideRegExp(v1, v2, v3, v4, v5, v6);
 }
 
-recuperationJeSaisPasQuoi()
+function valideRegExp(v1, v2, v3, v4, v5, v6) {
+
+    let nom = ""
+    let tel = ""
+    let mail = ""
+    let adresse = ""
+    let ville = ""
+    let codePostal = ""
+
+    let error = false
+
+    // nom
+    if(/^[A-Z]/.test(v1) && /[a-z]$/.test(v1) && v1.length <= 50){
+
+        console.log("c'est bon!")
+
+    } else { 
+        console.log("a refaire !")
+        console.log(RegExp)
+
+        nom = ' nom';
+        error = true;
+    }
+
+    // téléphone
+    if(v2.length <= 16){
+
+        console.log("c'est bon!")
+    
+    } else { 
+        console.log("a refaire !")
+        console.log(RegExp)
+
+        tel = " téléphone";
+        error = true;
+    }
+
+    // mail
+    if(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v3) && v3.length <= 50){
+       
+        console.log("c'est bon!")
+
+    } else { 
+        console.log("a refaire !")
+        console.log(RegExp)
+
+        mail = " email";
+        error = true;
+    }
+
+    // adresse
+    if(v4.length <= 200){
+
+        console.log("c'est bon!")
+
+    } else { 
+        console.log("a refaire !")
+        console.log(RegExp)
+
+        adresse = " adresse";
+        error = true;
+    }
+
+    // ville
+    if(/^[A-Z]/.test(v5) && v5.length <= 163){
+
+        console.log("c'est bon!")
+
+    } else { 
+        console.log("a refaire !")
+        console.log(RegExp)
+
+        ville = " ville";
+        error = true;
+    }
+
+    // code postal
+    if(v6.length <= 50){
+        
+        console.log("c'est bon!")
+
+    } else { 
+        console.log("a refaire !")
+        console.log(RegExp)
+
+        codePostal = " code postal";
+        error = true;
+    }
+
+    if(error == true){
+
+        alert("Merci de remplir corectement la ou les informations suivante :"  + nom + tel + mail + adresse + ville + codePostal);
+        
+    } else {
+
+        
+
+        //Envoyer a l'API pour récupérer un N° de commande
+        /*let mesInfo = {
+            nom: v1,
+            tel: v2,
+            mail: v3,
+            adresse: v4,
+            ville: v5,
+            code: v6,
+        }*/
+        
+       let mesInfo = {
+            firstName: v1,
+            lastName: v2,
+            address: v3,
+            city: v4,
+            email: v5
+        }
+
+        let MonJSONaEnvoyer = {
+            contact : mesInfo,
+            products : toutProduit
+        };
+
+        console.log(MonJSONaEnvoyer);
+        
+        fetch("http://localhost:3000/api/teddies/order", {
+            method: "POST",
+            headers: { 
+        'Accept': 'application/json', 
+        'Content-Type': 'application/json' 
+        },
+            body : JSON.stringify(MonJSONaEnvoyer)
+        })
+
+        .then (function(info) {
+            alert("Nous vous remercion de votre commande " + v1)
+
+            return info.json();
+        })
+
+        .then (function(data) {
+            console.log(data)
+
+            // data.code est bidon
+            let code = data.orderId
+            document.location.href="rendu.html?code=" + code; 
+        })
+    }
+}
+
+recuperationPanier()
