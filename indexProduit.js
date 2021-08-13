@@ -34,6 +34,8 @@ function recuperationProduit() {
     .then(function(res) {
         if (res.ok) {
             return res.json();
+        }else{
+            redirection();
         }
     })
 
@@ -177,6 +179,10 @@ function onClique(teddy) {
     }else{
         p.innerHTML = "Erreur : Veuiller rentrer un nombre entier positif"
     }    
+}
+
+function redirection (){
+    document.location.href="index.html"; 
 }
 
 recuperationProduit();

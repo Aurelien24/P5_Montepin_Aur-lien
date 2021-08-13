@@ -4,6 +4,18 @@ a {
             color: black;
 }
 
+h1, h2, h3 {
+    font-size: 19px;
+}
+
+h4 {
+    font-size: 17px;
+}
+
+p {
+    font-size: 15px;
+}
+
 button {
     border: none;
     border-radius: 5px;
@@ -26,6 +38,12 @@ button {
 .couleur-principal {
 
     background-color: #F3E9F1;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .header {
@@ -68,6 +86,7 @@ button {
 
 #resultat {
 
+    flex: 1 0 auto;
     flex-wrap: wrap;
     justify-content: center;
     padding: 3vw 0vw 3vw 0vw;
@@ -84,7 +103,8 @@ button {
 
         a {
 
-            width: 100% ;
+            width: 100%;
+            height: min-content;
 
             .img-recherche {
 
@@ -113,6 +133,9 @@ button {
 }
 
 footer {
+
+    flex-shrink: 0;
+
     div{
         div{
             ul{
@@ -132,8 +155,42 @@ footer {
     }
 }
 
-@media screen and (min-width: 995px){
+@media screen and (min-width: 768px){
+
+    h1, h2, h3 {
+        font-size: 20px;
+    }
+    
+    h4 {
+        font-size: 18px;
+    }
+    
+    p {
+        font-size: 16px;
+    }
+}
+
+@media screen and (min-width: 992px){
     .lien {
         flex-direction: row;
+    }
+
+    #resultat div a {
+        height: auto;
+    }
+}
+
+@media screen and (min-width: 2000px){
+
+    h1, h2, h3 {
+        font-size: 26px;
+    }
+    
+    h4 {
+        font-size: 23px;
+    }
+    
+    p {
+        font-size: 21px;
     }
 }

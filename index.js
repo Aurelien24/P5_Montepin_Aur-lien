@@ -13,7 +13,7 @@ function recuperationProduit() {
         }
     })
 
-   .then(function(teddies) {
+    .then(function(teddies) {
 
         console.log(teddies)
 
