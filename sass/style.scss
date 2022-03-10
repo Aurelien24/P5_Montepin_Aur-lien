@@ -132,8 +132,8 @@ body {
 }
 
 footer {
-
-    flex-grow: 1;
+    // Change le flex de bootstrap, évite d'avoir un font vide en bas de page
+    flex-grow: 1!important;
 
     div{
         div{
