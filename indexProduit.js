@@ -103,7 +103,7 @@ function onClique(teddy) {
     const selectColor = document.getElementById('color');
     const color = selectColor.value;
     const p = document.getElementById("error");
-    const nomProduit = document.getElementById("name");
+    //const nomProduit = document.getElementById("name");
     const name = teddy.name;
 
     repetition = false;

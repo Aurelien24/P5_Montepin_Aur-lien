@@ -82,7 +82,7 @@ function generationTableau(produit, panier){
 
     if (produit != null){
 
-        console.log(produit.price)
+        // Le prix vient du fetch pour évité toute erreur de ce coté la
         td4.textContent = produit.price / 100 + " €"
         td5.textContent = produit.price * panier.nombre / 100 + " €"
 
@@ -96,9 +96,7 @@ function generationTableau(produit, panier){
 
         // Ne fonctionne pas si ont donne toute les donnée a l'API
         objet = produit._id;
-
         toutProduit.push(objet);
-        console.log(toutProduit);
 
     } else {
         td4.textContent = "0 €"
@@ -222,7 +220,7 @@ function valideRegExp(v1, v2, v3, v4, v5, v6) {
     }
 
     // téléphone
-    if(v2.length <= 16){
+    if(/^[0-9]/.test(v2) && v2.length <= 16){
 
         console.log("c'est bon!")
     
@@ -292,17 +290,7 @@ function valideRegExp(v1, v2, v3, v4, v5, v6) {
         
     } else {
 
-        
-
         //Envoyer a l'API pour récupérer un N° de commande
-        /*let mesInfo = {
-            nom: v1,
-            tel: v2,
-            mail: v3,
-            adresse: v4,
-            ville: v5,
-            code: v6,
-        }*/
         
        let mesInfo = {
             firstName: v1,
@@ -339,7 +327,8 @@ function valideRegExp(v1, v2, v3, v4, v5, v6) {
 
             // data.code est bidon
             let code = data.orderId
-            document.location.href="rendu.html?code=" + code; 
+            let valeur = prixTotal * 100
+            document.location.href="rendu.html?code=" + code + "&valeur=" + valeur; 
         })
     }
 }
