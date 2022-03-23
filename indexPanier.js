@@ -219,8 +219,9 @@ function valideRegExp(v1, v2, v3, v4, v5, v6) {
         error = true;
     }
 
-    // téléphone
-    if(/^[0-9]/.test(v2) && v2.length <= 16){
+    //let regexPhone = "^((\\+)|(00)|(\\*)|())[0-9]{3,14}((\\#)|())$"
+    // téléphone -> accepte + ou un chiffre
+    if(/^(\+|[0-9])([0-9]*)([0-9]$)/.test(v2) && v2.length <= 16){
 
         console.log("c'est bon!")
     
@@ -286,7 +287,7 @@ function valideRegExp(v1, v2, v3, v4, v5, v6) {
 
     if(error == true){
 
-        alert("Merci de remplir corectement la ou les informations suivante :"  + nom + tel + mail + adresse + ville + codePostal);
+        alert("Merci de remplir corectement la ou les informations suivante :"  + nom + tel + mail + adresse + ville + codePostal + " Le nom et la ville doivent débuté part une majuscule. Les espaces ne son pas accepter dans le numéro de téléphone");
         
     } else {
 
